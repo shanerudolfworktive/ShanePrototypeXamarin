@@ -9,9 +9,9 @@ namespace ShanePrototypeXamarin
             InitializeComponent();
         }
 
-		void handleClickQuickUIExperiment(object sender, System.EventArgs e)
+		async void handleClickQuickUIExperiment(object sender, System.EventArgs e)
 		{
-			
+            await Navigation.PushAsync(new QuickUIExperimentPage());
 		}
     }
 }

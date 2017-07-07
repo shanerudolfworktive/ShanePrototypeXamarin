@@ -12,11 +12,11 @@ namespace ShanePrototypeXamarin {
     
     
     [global::Xamarin.Forms.Xaml.XamlFilePathAttribute("/Users/shane1/Desktop/ShanePrototypeXamarin/ShanePrototypeXamarin/QuickUIExperimentPage.xaml")]
-    public partial class HomePage : global::Xamarin.Forms.ContentPage {
+    public partial class QuickUIExperimentPage : global::Xamarin.Forms.ContentPage {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "0.0.0.0")]
         private void InitializeComponent() {
-            global::Xamarin.Forms.Xaml.Extensions.LoadFromXaml(this, typeof(HomePage));
+            global::Xamarin.Forms.Xaml.Extensions.LoadFromXaml(this, typeof(QuickUIExperimentPage));
         }
     }
 }

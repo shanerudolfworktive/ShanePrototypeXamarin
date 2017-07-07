@@ -8,7 +8,7 @@ namespace ShanePrototypeXamarin
         {
             InitializeComponent();
 
-            MainPage = new ShanePrototypeXamarinPage();
+            MainPage = new NavigationPage(new ShanePrototypeXamarinPage());
         }
 
         protected override void OnStart()
