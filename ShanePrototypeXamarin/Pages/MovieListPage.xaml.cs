@@ -4,11 +4,13 @@ using Xamarin.Forms;
 using System.Collections;
 using System.Threading.Tasks;
 using System.Linq;
+using ShanePrototypeXamarin.Services;
+using ShanePrototypeXamarin.Modals;
 namespace ShanePrototypeXamarin
 {
     public partial class MovieListPage : ContentPage
     {
-        private Services.MovieListService _movieListService = new Services.MovieListService();
+        private MovieListService _movieListService = new MovieListService();
 
         private BindableProperty IsSearchingProperty = BindableProperty.Create("IsSearching", typeof(bool), typeof(MovieListPage), false);
 		public bool IsSearching
@@ -24,7 +26,9 @@ namespace ShanePrototypeXamarin
         }
 
         async void OnMovieSelected(object sender, SelectedItemChangedEventArgs e){
-            await DisplayAlert("Movie Selected", "Movie Selected", "OK");
+            if (e.SelectedItem == null) return;
+
+            await Navigation.PushAsync(new Pages.MovieDetailsPage(e.SelectedItem as MovieModal));
         }
 
 		async void OnTextChanged(object sender, Xamarin.Forms.TextChangedEventArgs e)
