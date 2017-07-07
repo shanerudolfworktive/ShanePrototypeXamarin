@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using Xamarin.Forms;
-
+using System.Collections;
+using System.Threading.Tasks;
 namespace ShanePrototypeXamarin
 {
     public partial class MovieListPage : ContentPage
     {
+        private Services.MovieListService _movieListService = new Services.MovieListService();
+
         public MovieListPage()
         {
             InitializeComponent();
@@ -17,9 +20,7 @@ namespace ShanePrototypeXamarin
 
 		async void OnTextChanged(object sender, Xamarin.Forms.TextChangedEventArgs e)
 		{
-            List<Modals.MovieModal> movieModals = new List<Modals.MovieModal>();
-            movieModals.Add(new Modals.MovieModal());
-            movieModals.Add(new Modals.MovieModal());
+            var movieModals = await _movieListService.FindMoviesByActorName(e.NewTextValue);
             moviesListView.ItemsSource = movieModals;
 		}
     }
