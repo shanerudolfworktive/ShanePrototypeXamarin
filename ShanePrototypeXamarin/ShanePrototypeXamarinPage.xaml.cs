@@ -18,5 +18,11 @@ namespace ShanePrototypeXamarin
 		{
             await Navigation.PushAsync(new ImageExperimentPage());
 		}
+
+		async void handleClickMovieList(object sender, System.EventArgs e)
+		{
+			await Navigation.PushAsync(new MovieListPage());
+		}
+
     }
 }

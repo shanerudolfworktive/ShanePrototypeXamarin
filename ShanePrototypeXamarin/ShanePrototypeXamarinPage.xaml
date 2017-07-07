@@ -8,6 +8,7 @@
     <StackLayout HorizontalOptions="Center" VerticalOptions="Center" >
         <Button Text="Quick UI Experiement" Clicked="handleClickQuickUIExperiment"></Button>
         <Button Text="Image Experiement" Clicked="handleClickImageExperiment"></Button>
+        <Button Text="Movie List Experiement" Clicked="handleClickMovieList"></Button>
     </StackLayout>
 
     
