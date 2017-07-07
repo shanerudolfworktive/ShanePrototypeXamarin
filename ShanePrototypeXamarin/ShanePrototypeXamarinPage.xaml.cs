@@ -13,5 +13,10 @@ namespace ShanePrototypeXamarin
 		{
             await Navigation.PushAsync(new QuickUIExperimentPage());
 		}
+
+		async void handleClickImageExperiment(object sender, System.EventArgs e)
+		{
+            await Navigation.PushAsync(new ImageExperimentPage());
+		}
     }
 }
