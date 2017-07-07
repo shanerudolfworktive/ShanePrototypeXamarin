@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="ShanePrototypeXamarin.QuickUIExperimentPage">
 	<ContentPage.Content>
-        <Button Text="Test"></Button>
+        <StackLayout 
+            BindingContext="{x:Reference slider}"
+            HorizontalOptions="Center" VerticalOptions="Center" >
+            
+            <BoxView Color="Green" Opacity="{Binding Value}"/>
+            <Label Text="{Binding Value,
+                StringFormat='Value is {0:F2}' }"/>
+            <Slider x:Name="slider"/>
+        </StackLayout>
 	</ContentPage.Content>
 </ContentPage>
