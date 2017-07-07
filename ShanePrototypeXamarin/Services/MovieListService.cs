@@ -4,6 +4,7 @@ using System.Net;
 using System.Linq;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
+using System.Collections;
 using System.Collections.Generic;
 namespace ShanePrototypeXamarin.Services
 {
@@ -15,14 +16,14 @@ namespace ShanePrototypeXamarin.Services
 
         private HttpClient _client = new HttpClient();
 
-        public async Task<List<Modals.MovieModal>> FindMoviesByActorName(String actorName){
+        public async Task<IEnumerable<Modals.MovieModal>> FindMoviesByActorName(String actorName){
 			if (actorName.Length < MinSearchLength)
-                return new List<Modals.MovieModal>();
+                return Enumerable.Empty<Modals.MovieModal>();
 
             var response = await _client.GetAsync($"{BaseUrl}?actor={actorName}");
 
 			if (response.StatusCode == HttpStatusCode.NotFound)
-				return new List<Modals.MovieModal>();
+				return Enumerable.Empty<Modals.MovieModal>();
 
 			var content = await response.Content.ReadAsStringAsync();
 			return JsonConvert.DeserializeObject<List<Modals.MovieModal>>(content);

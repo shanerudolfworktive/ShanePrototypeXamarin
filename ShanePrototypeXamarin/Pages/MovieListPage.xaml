@@ -2,12 +2,18 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="ShanePrototypeXamarin.MovieListPage">
 	<StackLayout>
         <SearchBar Placeholder="Enter Actor Name Here" TextChanged="OnTextChanged"></SearchBar>
-        <ActivityIndicator IsRunning="true"/>
-        <ListView x:Name="moviesListView" ItemSelected="OnMovieSelected" IsVisible="true">
+        <ActivityIndicator x:Name="MovieSearchIndicator" IsRunning="true" IsVisible="{Binding IsSearching}"/>
+        <Frame x:Name="notFoundLabel" Padding="20" HasShadow="false" IsVisible="false">
+            <Label Text="No movies found matching your search." TextColor="Gray" />
+        </Frame>
+        <ListView x:Name="moviesListView" ItemSelected="OnMovieSelected" IsVisible="false">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ImageCell 
-                        Text="{Binding Title}" />
+                        ImageSource="{Binding Poster}"
+                        Text="{Binding Title}" 
+                        Detail="{Binding ReleaseYear}"
+                        />
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
