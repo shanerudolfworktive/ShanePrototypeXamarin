@@ -13,6 +13,7 @@ namespace ShanePrototypeXamarin
     {
         private MovieListService _movieListService = new MovieListService();
         private ObservableCollection<MovieModal> observableMovieModals;
+        private String searchedTextForRefreshing;
 
         private BindableProperty IsSearchingProperty = BindableProperty.Create("IsSearching", typeof(bool), typeof(MovieListPage), false);
 		public bool IsSearching
@@ -33,21 +34,35 @@ namespace ShanePrototypeXamarin
             await Navigation.PushAsync(new Pages.MovieDetailsPage(e.SelectedItem as MovieModal));
         }
 
-		async void OnTextChanged(object sender, Xamarin.Forms.TextChangedEventArgs e)
+		void OnTextChanged(object sender, Xamarin.Forms.TextChangedEventArgs e)
 		{
-            IsSearching = true;
-            var movieModals = await _movieListService.FindMoviesByActorName(e.NewTextValue);
-            observableMovieModals = new ObservableCollection<MovieModal>(movieModals);
-            IsSearching = false;
-			moviesListView.ItemsSource = observableMovieModals;
-            moviesListView.IsVisible = observableMovieModals.Any();
-            notFoundLabel.IsVisible = !observableMovieModals.Any();
+            searchedTextForRefreshing = e.NewTextValue;
+            SearchMovies(searchedTextForRefreshing);
 		}
+
+        async void SearchMovies(String searchTitle){
+			IsSearching = true;
+            var movieModals = await _movieListService.FindMoviesByActorName(searchTitle);
+			observableMovieModals = new ObservableCollection<MovieModal>(movieModals);
+			IsSearching = false;
+			moviesListView.ItemsSource = observableMovieModals;
+			moviesListView.IsVisible = observableMovieModals.Any();
+			notFoundLabel.IsVisible = !observableMovieModals.Any();
+            moviesListView.EndRefresh();
+        }
 
         void Handle_Click_Delete(object sender, System.EventArgs e){
             var menuItem = sender as MenuItem;
             var movieModal = menuItem.CommandParameter as MovieModal;
             observableMovieModals.Remove(movieModal);
         }
+
+		void Handle_Refreshing(object sender, System.EventArgs e)
+		{
+			SearchMovies(searchedTextForRefreshing);
+		}
+
+
+
     }
 }

@@ -6,7 +6,7 @@
         <Frame x:Name="notFoundLabel" Padding="20" HasShadow="false" IsVisible="false">
             <Label Text="No movies found matching your search." TextColor="Gray" />
         </Frame>
-        <ListView x:Name="moviesListView" ItemSelected="OnMovieSelected" IsVisible="false">
+        <ListView x:Name="moviesListView" ItemSelected="OnMovieSelected" IsVisible="false" IsPullToRefreshEnabled="true" Refreshing="Handle_Refreshing">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ImageCell 
