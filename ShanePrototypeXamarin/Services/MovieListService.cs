@@ -17,14 +17,14 @@ namespace ShanePrototypeXamarin.Services
 
         private HttpClient _client = new HttpClient();
 
-        public async Task<IEnumerable<MovieModal>> FindMoviesByActorName(String actorName){
+        public async Task<List<MovieModal>> FindMoviesByActorName(String actorName){
 			if (actorName.Length < MinSearchLength)
-                return Enumerable.Empty<MovieModal>();
+                return new List<MovieModal>();
 
             var response = await _client.GetAsync($"{BaseUrl}?actor={actorName}");
 
 			if (response.StatusCode == HttpStatusCode.NotFound)
-				return Enumerable.Empty<MovieModal>();
+				return new List<MovieModal>();
 
 			var content = await response.Content.ReadAsStringAsync();
 			return JsonConvert.DeserializeObject<List<MovieModal>>(content);

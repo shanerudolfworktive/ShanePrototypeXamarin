@@ -12,8 +12,13 @@
                     <ImageCell 
                         ImageSource="{Binding Poster}"
                         Text="{Binding Title}" 
-                        Detail="{Binding ReleaseYear}"
-                        />
+                        Detail="{Binding ReleaseYear}">
+
+                        <TextCell.ContextActions>
+                            <MenuItem Text="Delete" IsDestructive="true" Clicked="Handle_Click_Delete" CommandParameter="{Binding .}"/>
+                        </TextCell.ContextActions>
+
+                    </ImageCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

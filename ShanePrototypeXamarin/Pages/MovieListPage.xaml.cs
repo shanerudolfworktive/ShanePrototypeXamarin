@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 using System.Linq;
 using ShanePrototypeXamarin.Services;
 using ShanePrototypeXamarin.Modals;
+using System.Collections.ObjectModel;
 namespace ShanePrototypeXamarin
 {
     public partial class MovieListPage : ContentPage
     {
         private MovieListService _movieListService = new MovieListService();
+        private ObservableCollection<MovieModal> observableMovieModals;
 
         private BindableProperty IsSearchingProperty = BindableProperty.Create("IsSearching", typeof(bool), typeof(MovieListPage), false);
 		public bool IsSearching
@@ -35,10 +37,17 @@ namespace ShanePrototypeXamarin
 		{
             IsSearching = true;
             var movieModals = await _movieListService.FindMoviesByActorName(e.NewTextValue);
+            observableMovieModals = new ObservableCollection<MovieModal>(movieModals);
             IsSearching = false;
-			moviesListView.ItemsSource = movieModals;
-            moviesListView.IsVisible = movieModals.Any();
-            notFoundLabel.IsVisible = !movieModals.Any();
+			moviesListView.ItemsSource = observableMovieModals;
+            moviesListView.IsVisible = observableMovieModals.Any();
+            notFoundLabel.IsVisible = !observableMovieModals.Any();
 		}
+
+        void Handle_Click_Delete(object sender, System.EventArgs e){
+            var menuItem = sender as MenuItem;
+            var movieModal = menuItem.CommandParameter as MovieModal;
+            observableMovieModals.Remove(movieModal);
+        }
     }
 }
